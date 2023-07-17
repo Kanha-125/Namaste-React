@@ -6,7 +6,7 @@
 }
 
 .logo {
-  width: 100px;
+  width: 150px;
 }
 
 .nav-items > ul {
@@ -47,9 +47,35 @@
   padding: 10px;
 }
 
+.filter {
+  display: flex;
+}
+
 .filter-btn {
   cursor: pointer;
   margin: 10px;
+}
+
+.shimmer-container {
+  flex-wrap: wrap;
+  margin-top: 20px;
+  display: flex;
+}
+
+.shimmer-card {
+  background-color: #f0f0f0;
+  width: 150px;
+  height: 300px;
+  margin: 3px;
+  padding: 5px;
+}
+
+.login {
+  cursor: pointer;
+  align-self: center;
+  height: 30px;
+  margin-right: 10px;
+  padding: 0 20px;
 }
 
 /*# sourceMappingURL=index.9e4c6fd2.css.map */
