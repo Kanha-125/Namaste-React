@@ -74,3 +74,12 @@
     align-self: center;
 }
 
+.link{
+    text-decoration: none;
+    color: black;
+}
+
+.link:hover {
+    color:gray;
+}
+

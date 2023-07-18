@@ -78,4 +78,13 @@
   padding: 0 20px;
 }
 
+.link {
+  color: #000;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: gray;
+}
+
 /*# sourceMappingURL=index.9e4c6fd2.css.map */
