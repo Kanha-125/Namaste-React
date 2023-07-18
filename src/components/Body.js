@@ -2,6 +2,7 @@ import RestaurantCard from "./RestaurantCard.js";
 import { useState ,useEffect} from "react";
 import Shimmer from "./Shimmer.js";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus.js";
 
 const Body = () =>  {
     const [listOfRestaurants,setListOfRestaurants] = useState([]);
@@ -25,13 +26,17 @@ const Body = () =>  {
         setListOfRestaurants(json?.data?.cards[2]?.data?.data?.cards);
         setFilteredRestaurant(json?.data?.cards[2]?.data?.data?.cards);
     }
+
+    const getOnlineStaus = useOnlineStatus();
+
+    if(getOnlineStaus===false) return <h1>Looks like you are offline !! Please check your internet connection</h1>
     
     return listOfRestaurants.length===0 ?
         <Shimmer/> :    
         <div className="body">
-                <div className="filter">
-                    <div className="search">
-                        <input type="text" 
+            <div className="filter">
+                <div className="search">
+                    <input type="text" 
                         className="search-box" 
                         value={searchText}
                         onChange={(e)=>{
@@ -44,13 +49,13 @@ const Body = () =>  {
                             setFilteredRestaurant(filterdList);
 
                         }}>Search</button>
-                    </div>
-                    <button className="filter-btn" 
-                    onClick={()=>{
-                        const filterList = listOfRestaurants.filter(
+                </div>
+                <button className="filter-btn" 
+                        onClick={()=>{
+                const filterList = listOfRestaurants.filter(
                             (res) => res.data.avgRating >4 );
-                        setFilteredRestaurant(filterList);
-                    }}>Top Rated Restaurants</button>
+                            setFilteredRestaurant(filterList);
+                            }}>Top Rated Restaurants</button>
                 </div>
                 <div className="res-container">
                     {
