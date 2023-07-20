@@ -8,6 +8,7 @@
   "version": "1.0.0",
   "description": "hi",
   "devDependencies": {
+    "buffer": "^6.0.3",
     "parcel": "^2.9.3",
     "postcss": "^8.4.26",
     "process": "^0.11.10",

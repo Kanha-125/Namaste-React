@@ -1,8 +1,10 @@
-import RestaurantCard from "./RestaurantCard.js";
-import { useState ,useEffect} from "react";
+import RestaurantCard , {withPromotedLabel}from "./RestaurantCard.js";
+import { useState ,useEffect,useContext} from "react";
 import Shimmer from "./Shimmer.js";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus.js";
+import UserContext from "../utils/UserContext.js";
+
 
 const Body = () =>  {
     const [listOfRestaurants,setListOfRestaurants] = useState([]);
@@ -28,16 +30,19 @@ const Body = () =>  {
     }
 
     const getOnlineStaus = useOnlineStatus();
+    const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
 
     if(getOnlineStaus===false) return <h1>Looks like you are offline !! Please check your internet connection</h1>
+
+    const {setUserName,loggedInUser} = useContext(UserContext);
     
-    return listOfRestaurants.length===0 ?
+    return (listOfRestaurants.length) ==0 ?
         <Shimmer/> :    
         <div className="body">
             <div className="filter flex m-4">
                 <div className="search m-2 p-2">
                     <input type="text" 
-                        className="border border-solid border-black rounded-sm w-80" 
+                        className="border border-solid border-black rounded-sm w-60" 
                         value={searchText}
                         onChange={(e)=>{
                             setSearchText(e.target.value);
@@ -58,12 +63,18 @@ const Body = () =>  {
                     setFilteredRestaurant(filterList);
                     }}>Top Rated Restaurants</button>
                 </div>
-                
+                <div className="m-2 p-2 flex items-center">
+                    <label>User Name : </label>
+                    <input className="border border-black m-1 p-1 h-6"  onChange={(e)=>setUserName(e.target.value) } value={loggedInUser}
+                    />
+                </div>
                 </div>
                 <div className="res-container flex flex-wrap">
                     {
                         filteredRestaurant.map((restaurant)=>(
-                           <Link key={restaurant.data.id}  to={"/restaurant/"+restaurant.data.id}> <RestaurantCard  resData={restaurant}/></Link>
+                           <Link key={restaurant.data.id}  to={"/restaurant/"+restaurant.data.id}> 
+                           {restaurant.data.promoted ? <RestaurantCard resData={restaurant}/>:<RestaurantCard  resData={restaurant}/>}
+                           </Link>
                         ))
                     }
                     
